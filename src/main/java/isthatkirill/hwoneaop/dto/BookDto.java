@@ -39,7 +39,7 @@ public class BookDto {
     String publisher;
 
     @NotBlank(message = "Book genre cannot be blank", groups = OnCreate.class)
-    @Size(message = "Book genre must be between 3 and 255 chars", min = 3, max = 128,
+    @Size(message = "Book genre must be between 3 and 128 chars", min = 3, max = 128,
             groups = {OnCreate.class, OnUpdate.class})
     String genre;
 
