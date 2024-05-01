@@ -44,7 +44,9 @@ public class BookDto {
     String genre;
 
     @NotNull(message = "Year of publication cannot be null", groups = OnCreate.class)
-    @Size(min = 1454, max = 2024, message = "Year of publication must be in the range from 1454 (first book) to 2024",
+    @Min(value = 1454, message = "Year of publication must be in the range from 1454 (first book) to 2024",
+            groups = {OnCreate.class, OnUpdate.class})
+    @Max(value = 2024, message = "Year of publication must be in the range from 1454 (first book) to 2024",
             groups = {OnCreate.class, OnUpdate.class})
     Integer yearOfPublication;
 

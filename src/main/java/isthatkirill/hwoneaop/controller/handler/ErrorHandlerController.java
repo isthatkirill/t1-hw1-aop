@@ -27,7 +27,7 @@ public class ErrorHandlerController {
     public ErrorResponse notValidArgumentHandle(final MethodArgumentNotValidException e) {
         List<FieldError> errors = e.getBindingResult().getFieldErrors();
         String errorMessage = errors.stream()
-                .map(error -> String.format("Field: %s, error: %s, value: %s",
+                .map(error -> String.format("Field: %s || error: %s || value: %s",
                         error.getField(), error.getDefaultMessage(), error.getRejectedValue()))
                 .collect(Collectors.joining("\n"));
         log.error("Error: {} Description: {}", HttpStatus.BAD_REQUEST.getReasonPhrase(), errorMessage);
@@ -39,7 +39,7 @@ public class ErrorHandlerController {
     public ErrorResponse constraintViolationHandle(final ConstraintViolationException e) {
         Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
         String errorMessage = violations.stream()
-                .map(violation -> String.format("Field: %s, error: %s, value: %s",
+                .map(violation -> String.format("Field: %s || error: %s || value: %s",
                         violation.getPropertyPath().toString(), violation.getMessage(), violation.getInvalidValue()))
                 .collect(Collectors.joining("\n"));
         log.error("Error: {} Description: {}", HttpStatus.BAD_REQUEST.getReasonPhrase(), errorMessage);
