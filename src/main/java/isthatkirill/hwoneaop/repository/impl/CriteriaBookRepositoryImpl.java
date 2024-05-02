@@ -8,6 +8,7 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
+import jakarta.persistence.metamodel.Attribute;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -33,14 +34,13 @@ public class CriteriaBookRepositoryImpl implements CriteriaBookRepository {
         Integer from = parseIntSafeOrZero(params.remove("from"));
         Integer max = parseIntSafeOrZero(params.remove("max"));
 
-        for (Map.Entry<String, String> entry : params.entrySet()) {
-            String key = entry.getKey();
-            String value = entry.getValue();
-            log.error(key);
-            if (root.getModel().getAttribute(key) != null) {
+        var attributes = root.getModel().getDeclaredAttributes();
+
+        for (var attribute : attributes) {
+            String key = attribute.getName();
+            String value = params.get(key);
+            if (value != null) {
                 predicate = cb.and(predicate, root.get(key).in(value));
-            } else {
-                log.warn("Field {} does not exists.", key);
             }
         }
 
