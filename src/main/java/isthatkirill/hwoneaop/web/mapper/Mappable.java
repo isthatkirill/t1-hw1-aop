@@ -1,4 +1,4 @@
-package isthatkirill.hwoneaop.mapper;
+package isthatkirill.hwoneaop.web.mapper;
 
 /**
  * @author Kirill Emelyanov

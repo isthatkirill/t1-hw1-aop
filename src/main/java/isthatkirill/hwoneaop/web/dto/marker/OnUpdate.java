@@ -1,4 +1,4 @@
-package isthatkirill.hwoneaop.dto.marker;
+package isthatkirill.hwoneaop.web.dto.marker;
 
 /**
  * @author Kirill Emelyanov

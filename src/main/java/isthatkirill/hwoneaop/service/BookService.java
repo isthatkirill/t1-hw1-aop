@@ -1,7 +1,8 @@
 package isthatkirill.hwoneaop.service;
 
-import isthatkirill.hwoneaop.dto.BookDto;
 import isthatkirill.hwoneaop.model.Book;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * @author Kirill Emelyanov
@@ -9,6 +10,8 @@ import isthatkirill.hwoneaop.model.Book;
 
 public interface BookService {
 
-    Book addBook(Book book);
+    CompletableFuture<Book> addBook(Book book);
+
+    CompletableFuture<Book> getBookById(Long id);
 
 }

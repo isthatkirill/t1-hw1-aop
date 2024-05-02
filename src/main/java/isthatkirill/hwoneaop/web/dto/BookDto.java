@@ -1,13 +1,10 @@
-package isthatkirill.hwoneaop.dto;
+package isthatkirill.hwoneaop.web.dto;
 
-import isthatkirill.hwoneaop.dto.marker.OnCreate;
-import isthatkirill.hwoneaop.dto.marker.OnUpdate;
+import isthatkirill.hwoneaop.web.dto.marker.OnCreate;
+import isthatkirill.hwoneaop.web.dto.marker.OnUpdate;
 import jakarta.validation.constraints.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-
-import java.time.LocalDateTime;
-import java.time.Year;
 
 /**
  * @author Kirill Emelyanov

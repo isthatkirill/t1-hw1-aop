@@ -1,6 +1,6 @@
-package isthatkirill.hwoneaop.mapper;
+package isthatkirill.hwoneaop.web.mapper;
 
-import isthatkirill.hwoneaop.dto.BookDto;
+import isthatkirill.hwoneaop.web.dto.BookDto;
 import isthatkirill.hwoneaop.model.Book;
 import org.mapstruct.Mapper;
 

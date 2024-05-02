@@ -1,4 +1,4 @@
-package isthatkirill.hwoneaop.controller.handler;
+package isthatkirill.hwoneaop.web.controller.handler;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;

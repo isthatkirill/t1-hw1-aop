@@ -1,4 +1,4 @@
-package isthatkirill.hwoneaop.controller.handler;
+package isthatkirill.hwoneaop.web.controller.handler;
 
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
@@ -44,6 +44,14 @@ public class ErrorHandlerController {
                 .collect(Collectors.joining("\n"));
         log.error("Error: {} Description: {}", HttpStatus.BAD_REQUEST.getReasonPhrase(), errorMessage);
         return new ErrorResponse(HttpStatus.BAD_REQUEST.getReasonPhrase(), errorMessage);
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ErrorResponse unexpectedErrorHandle(final Exception e) {
+        log.error("{}", e.getMessage());
+        return new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), e.getMessage());
+
     }
 
 }
