@@ -1,5 +1,6 @@
 package isthatkirill.hwoneaop.web.controller.handler;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
@@ -44,6 +45,15 @@ public class ErrorHandlerController {
                 .collect(Collectors.joining("\n"));
         log.error("Error: {} Description: {}", HttpStatus.BAD_REQUEST.getReasonPhrase(), errorMessage);
         return new ErrorResponse(HttpStatus.BAD_REQUEST.getReasonPhrase(), errorMessage);
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorResponse entityNotFoundHandle(final EntityNotFoundException e) {
+        log.error("Entity with id = {} not found", e.getMessage());
+        return new ErrorResponse(HttpStatus.NOT_FOUND.getReasonPhrase(),
+                "Entity with id = " + e.getMessage() + " not found");
+
     }
 
     @ExceptionHandler
