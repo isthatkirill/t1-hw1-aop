@@ -56,17 +56,13 @@ public class BookServiceImpl implements BookService {
     @Override
     @TrackTime
     public Book addBook(Book book) {
-        ThreadUtils.sleep(500L);
         checkIfBookAlreadyExists(book.getIsbn());
-        log.info("Executed by thread --> {}", Thread.currentThread().getName());
         return bookRepository.save(book);
     }
 
     @Override
     @TrackTime
     public Book updateBook(BookDto bookDto, Long bookId) {
-        ThreadUtils.sleep(500L);
-        log.info("Executed by thread --> {}", Thread.currentThread().getName());
         Book book = checkIfBookExistsAndGet(bookId);
 
         if (bookDto.getIsbn() != null) {

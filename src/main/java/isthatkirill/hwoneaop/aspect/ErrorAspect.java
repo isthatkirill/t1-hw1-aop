@@ -11,12 +11,11 @@ import org.springframework.stereotype.Component;
  * @author Kirill Emelyanov
  */
 
-@Component
+@Slf4j
 @Aspect
 @Order(2)
-@Slf4j
+@Component
 public class ErrorAspect {
-
 
     @AfterThrowing(value = "@annotation(isthatkirill.hwoneaop.aspect.annotation.TrackTime)", throwing = "e")
     public void logError(JoinPoint joinPoint, Exception e) {
