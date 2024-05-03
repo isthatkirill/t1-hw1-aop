@@ -4,6 +4,7 @@ import isthatkirill.hwoneaop.model.Execution;
 import isthatkirill.hwoneaop.repository.ExecutionRepository;
 import isthatkirill.hwoneaop.service.ExecutionService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
  * @author Kirill Emelyanov
  */
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ExecutionServiceImpl implements ExecutionService {
@@ -20,6 +22,7 @@ public class ExecutionServiceImpl implements ExecutionService {
     @Async
     @Override
     public void save(Execution execution) {
+        log.info("Executed by thread --> {}", Thread.currentThread().getName());
         executionRepository.save(execution);
     }
 }
