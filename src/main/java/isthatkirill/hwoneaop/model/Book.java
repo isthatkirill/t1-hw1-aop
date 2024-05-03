@@ -22,6 +22,7 @@ public class Book {
     Long id;
 
     String name;
+    String isbn;
     String author;
     String publisher;
     String genre;

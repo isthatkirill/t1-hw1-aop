@@ -25,6 +25,11 @@ public class BookDto {
             groups = {OnCreate.class, OnUpdate.class})
     String name;
 
+    @NotBlank(message = "Book isbn cannot be blank", groups = OnCreate.class)
+    @Size(message = "Book isbn must be between 5 and 32 chars", min = 5, max = 32,
+            groups = {OnCreate.class, OnUpdate.class})
+    String isbn;
+
     @NotBlank(message = "Book author cannot be blank", groups = OnCreate.class)
     @Size(message = "Book title must be between 3 and 255 chars", min = 3, max = 255,
             groups = {OnCreate.class, OnUpdate.class})

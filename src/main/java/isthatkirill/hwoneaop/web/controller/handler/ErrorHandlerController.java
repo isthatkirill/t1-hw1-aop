@@ -1,6 +1,7 @@
 package isthatkirill.hwoneaop.web.controller.handler;
 
-import jakarta.persistence.EntityNotFoundException;
+import isthatkirill.hwoneaop.web.controller.handler.exception.BookAlreadyExistsException;
+import isthatkirill.hwoneaop.web.controller.handler.exception.BookNotFoundException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
@@ -49,20 +50,21 @@ public class ErrorHandlerController {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorResponse entityNotFoundHandle(final EntityNotFoundException e) {
-        log.error("Entity with id = {} not found", e.getMessage());
-        return new ErrorResponse(HttpStatus.NOT_FOUND.getReasonPhrase(),
-                "Entity with id = " + e.getMessage() + " not found");
+    public ErrorResponse bookNotFoundHandle(final BookNotFoundException e) {
+        log.error("{}", e.getMessage());
+        return new ErrorResponse(HttpStatus.NOT_FOUND.getReasonPhrase(), e.getMessage());
+    }
 
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse bookAlreadyExistsHandle(final BookAlreadyExistsException e) {
+        return new ErrorResponse(HttpStatus.BAD_REQUEST.getReasonPhrase(), e.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorResponse unexpectedErrorHandle(final Exception e) {
-        e.printStackTrace();
-        log.error("{}", e.getMessage());
         return new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), e.getMessage());
-
     }
 
 }
