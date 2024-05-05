@@ -15,12 +15,11 @@ import java.util.concurrent.Executor;
 @Configuration
 public class ApplicationConfig {
 
-    @Bean
+    @Bean("defaultExecutor")
     public Executor taskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(8);
-        executor.setMaxPoolSize(8);
-        executor.setQueueCapacity(500);
+        executor.setCorePoolSize(16);
+        executor.setMaxPoolSize(16);
         executor.setThreadNamePrefix("Thread-");
         executor.initialize();
         return executor;

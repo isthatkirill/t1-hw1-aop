@@ -64,6 +64,7 @@ public class ErrorHandlerController {
     @ExceptionHandler
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorResponse unexpectedErrorHandle(final Exception e) {
+        e.printStackTrace();
         return new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), e.getMessage());
     }
 

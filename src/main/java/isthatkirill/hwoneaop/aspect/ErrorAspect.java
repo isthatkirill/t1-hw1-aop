@@ -23,7 +23,8 @@ public class ErrorAspect {
 
     private final ExecutionService executionService;
 
-    @AfterThrowing(value = "@annotation(isthatkirill.hwoneaop.aspect.annotation.TrackTime)", throwing = "e")
+    @AfterThrowing(value = "@annotation(isthatkirill.hwoneaop.aspect.annotation.TrackTime) || " +
+            "@annotation(isthatkirill.hwoneaop.aspect.annotation.TrackAsyncTime)", throwing = "e")
     public void logError(JoinPoint point, Exception e) {
         String methodName = point.getSignature().getName();
         String className = point.getSignature().getDeclaringTypeName();

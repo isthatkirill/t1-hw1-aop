@@ -3,8 +3,6 @@ package isthatkirill.hwoneaop.model;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.hibernate.annotations.Type;
-import org.hibernate.type.SqlTypes;
 
 /**
  * @author Kirill Emelyanov

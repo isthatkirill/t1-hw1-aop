@@ -22,7 +22,6 @@ public class ExecutionServiceImpl implements ExecutionService {
     @Async
     @Override
     public void save(Execution execution) {
-        log.info("Executed by thread --> {}", Thread.currentThread().getName());
         executionRepository.save(execution);
     }
 }

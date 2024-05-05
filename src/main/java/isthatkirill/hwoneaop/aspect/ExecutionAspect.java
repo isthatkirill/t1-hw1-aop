@@ -23,7 +23,8 @@ public class ExecutionAspect {
 
     private final ExecutionService executionService;
 
-    @Around(value = "@annotation(isthatkirill.hwoneaop.aspect.annotation.TrackTime)")
+    @Around(value = "@annotation(isthatkirill.hwoneaop.aspect.annotation.TrackTime) || " +
+            "@annotation(isthatkirill.hwoneaop.aspect.annotation.TrackAsyncTime)")
     public Object executionTime(ProceedingJoinPoint point) throws Throwable {
         String methodName = point.getSignature().getName();
         String className = point.getSignature().getDeclaringTypeName();
@@ -33,8 +34,8 @@ public class ExecutionAspect {
         Object object = point.proceed();
         long millisTook = System.currentTimeMillis() - startTime;
 
-        log.info("Method [{}] from class [{}] executed in {} millis with args = {}", methodName, className,
-                millisTook, args);
+        log.info("Method [{}] from class [{}] executed in {} millis by thread [{}] with args = {}", methodName, className,
+                millisTook, Thread.currentThread().getName(), args);
 
         executionService.save(
                 Execution.builder()

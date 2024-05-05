@@ -1,5 +1,6 @@
 package isthatkirill.hwoneaop.service.impl;
 
+import isthatkirill.hwoneaop.aspect.annotation.TrackAsyncTime;
 import isthatkirill.hwoneaop.aspect.annotation.TrackTime;
 import isthatkirill.hwoneaop.model.Book;
 import isthatkirill.hwoneaop.repository.BookRepository;
@@ -30,25 +31,26 @@ public class BookServiceImpl implements BookService {
 
     @Async
     @Override
+    @TrackAsyncTime
     public CompletableFuture<Book> getBookById(Long bookId) {
-        ThreadUtils.sleep(500L);
-        log.info("Executed by thread --> {}", Thread.currentThread().getName());
+        ThreadUtils.sleep(3000L);
+
         return CompletableFuture.completedFuture(checkIfBookExistsAndGet(bookId));
     }
 
     @Async
     @Override
     public CompletableFuture<List<Book>> getBooksWithFilters(Map<String, String> params) {
-        ThreadUtils.sleep(500L);
-        log.info("Executed by thread --> {}", Thread.currentThread().getName());
+        ThreadUtils.sleep(3000L);
+
         return CompletableFuture.completedFuture(bookRepository.findBooksWithFilters(params));
     }
 
     @Async
     @Override
     public void deleteBook(Long bookId) {
-        ThreadUtils.sleep(500L);
-        log.info("Executed by thread --> {}", Thread.currentThread().getName());
+        ThreadUtils.sleep(3000L);
+
         checkIfBookExists(bookId);
         bookRepository.deleteById(bookId);
     }
@@ -63,8 +65,9 @@ public class BookServiceImpl implements BookService {
     @Override
     @TrackTime
     public Book updateBook(BookDto bookDto, Long bookId) {
-        Book book = checkIfBookExistsAndGet(bookId);
+        ThreadUtils.sleep(3000L);
 
+        Book book = checkIfBookExistsAndGet(bookId);
         if (bookDto.getIsbn() != null) {
             checkIfBookAlreadyExists(bookDto.getIsbn());
             book.setAuthor(bookDto.getIsbn());
