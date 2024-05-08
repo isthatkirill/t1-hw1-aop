@@ -4,6 +4,7 @@ import isthatkirill.hwoneaop.model.Execution;
 import isthatkirill.hwoneaop.repository.ExecutionRepository;
 import isthatkirill.hwoneaop.service.ExecutionService;
 import isthatkirill.hwoneaop.web.controller.handler.exception.EntityNotFoundException;
+import isthatkirill.hwoneaop.web.dto.ExecutionSummary;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
@@ -29,9 +30,20 @@ public class ExecutionServiceImpl implements ExecutionService {
     }
 
     @Override
+    @Async
     public CompletableFuture<Execution> getExecutionById(Long executionId) {
         return CompletableFuture.completedFuture(checkIfExecutionExistsAndGet(executionId));
     }
+
+    @Override
+    @Async
+    public CompletableFuture<ExecutionSummary> getMethodSummary(String methodName, String className) {
+        return CompletableFuture.completedFuture(
+                executionRepository.getMethodExecutionSummary(methodName, className)
+                .orElseThrow(() -> new EntityNotFoundException(ExecutionSummary.class))
+        );
+    }
+
 
     private Execution checkIfExecutionExistsAndGet(Long executionId) {
         return executionRepository.findById(executionId)

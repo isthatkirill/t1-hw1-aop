@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.CompletionException;
 import java.util.stream.Collectors;
 
 /**
@@ -59,6 +60,12 @@ public class ErrorHandlerController {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse bookAlreadyExistsHandle(final BookAlreadyExistsException e) {
         return new ErrorResponse(HttpStatus.BAD_REQUEST.getReasonPhrase(), e.getMessage());
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse completionExceptionHandle(final CompletionException e) {
+        return new ErrorResponse(HttpStatus.BAD_REQUEST.getReasonPhrase(), e.getCause().getMessage());
     }
 
     @ExceptionHandler
