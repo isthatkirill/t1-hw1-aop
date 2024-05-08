@@ -1,7 +1,7 @@
 package isthatkirill.hwoneaop.web.controller.handler;
 
 import isthatkirill.hwoneaop.web.controller.handler.exception.BookAlreadyExistsException;
-import isthatkirill.hwoneaop.web.controller.handler.exception.BookNotFoundException;
+import isthatkirill.hwoneaop.web.controller.handler.exception.EntityNotFoundException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
@@ -50,7 +50,7 @@ public class ErrorHandlerController {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorResponse bookNotFoundHandle(final BookNotFoundException e) {
+    public ErrorResponse entityNotFoundHandle(final EntityNotFoundException e) {
         log.error("{}", e.getMessage());
         return new ErrorResponse(HttpStatus.NOT_FOUND.getReasonPhrase(), e.getMessage());
     }

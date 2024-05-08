@@ -1,10 +1,8 @@
-package isthatkirill.hwoneaop.model;
+package isthatkirill.hwoneaop.web.dto;
 
-import isthatkirill.hwoneaop.utils.ArgsConverter;
-import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonRawValue;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -14,27 +12,19 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "executions")
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Execution {
+public class ExecutionDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-
     String methodName;
     String className;
     Boolean isSuccess;
     Long millisTook;
-
-    @CreationTimestamp
     LocalDateTime executedAt;
 
-    @Convert(converter = ArgsConverter.class)
+    @JsonRawValue
     Object args;
 
 }

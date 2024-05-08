@@ -7,7 +7,7 @@ import isthatkirill.hwoneaop.repository.BookRepository;
 import isthatkirill.hwoneaop.service.BookService;
 import isthatkirill.hwoneaop.utils.ThreadUtils;
 import isthatkirill.hwoneaop.web.controller.handler.exception.BookAlreadyExistsException;
-import isthatkirill.hwoneaop.web.controller.handler.exception.BookNotFoundException;
+import isthatkirill.hwoneaop.web.controller.handler.exception.EntityNotFoundException;
 import isthatkirill.hwoneaop.web.dto.BookDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,24 +33,23 @@ public class BookServiceImpl implements BookService {
     @Override
     @TrackAsyncTime
     public CompletableFuture<Book> getBookById(Long bookId) {
-        ThreadUtils.sleep(3000L);
-
+        ThreadUtils.sleep(1000L);
         return CompletableFuture.completedFuture(checkIfBookExistsAndGet(bookId));
     }
 
     @Async
     @Override
+    @TrackAsyncTime
     public CompletableFuture<List<Book>> getBooksWithFilters(Map<String, String> params) {
-        ThreadUtils.sleep(3000L);
-
+        ThreadUtils.sleep(2000L);
         return CompletableFuture.completedFuture(bookRepository.findBooksWithFilters(params));
     }
 
     @Async
     @Override
+    @TrackAsyncTime
     public void deleteBook(Long bookId) {
-        ThreadUtils.sleep(3000L);
-
+        ThreadUtils.sleep(500L);
         checkIfBookExists(bookId);
         bookRepository.deleteById(bookId);
     }
@@ -90,14 +89,14 @@ public class BookServiceImpl implements BookService {
 
     private Book checkIfBookExistsAndGet(Long bookId) {
         return bookRepository.findById(bookId)
-                .orElseThrow(() -> new BookNotFoundException(bookId));
+                .orElseThrow(() -> new EntityNotFoundException(Book.class, bookId));
     }
 
     private void checkIfBookExists(Long bookId) {
         if (bookRepository.existsById(bookId)) {
             return;
         }
-        throw new BookNotFoundException(bookId);
+        throw new EntityNotFoundException(Book.class, bookId);
     }
 
 

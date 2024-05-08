@@ -1,4 +1,4 @@
-package isthatkirill.hwoneaop.model.converter;
+package isthatkirill.hwoneaop.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.AttributeConverter;
