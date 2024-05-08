@@ -33,7 +33,7 @@ public class BookServiceImpl implements BookService {
     @Override
     @TrackAsyncTime
     public CompletableFuture<Book> getBookById(Long bookId) {
-        ThreadUtils.sleep(1000L);
+        ThreadUtils.sleep(150L);
         return CompletableFuture.completedFuture(checkIfBookExistsAndGet(bookId));
     }
 
@@ -41,7 +41,7 @@ public class BookServiceImpl implements BookService {
     @Override
     @TrackAsyncTime
     public CompletableFuture<List<Book>> getBooksWithFilters(Map<String, String> params) {
-        ThreadUtils.sleep(2000L);
+        ThreadUtils.sleep(200L);
         return CompletableFuture.completedFuture(bookRepository.findBooksWithFilters(params));
     }
 
@@ -49,7 +49,7 @@ public class BookServiceImpl implements BookService {
     @Override
     @TrackAsyncTime
     public void deleteBook(Long bookId) {
-        ThreadUtils.sleep(500L);
+        ThreadUtils.sleep(100L);
         checkIfBookExists(bookId);
         bookRepository.deleteById(bookId);
     }
@@ -57,6 +57,7 @@ public class BookServiceImpl implements BookService {
     @Override
     @TrackTime
     public Book addBook(Book book) {
+        ThreadUtils.sleep(200L);
         checkIfBookAlreadyExists(book.getIsbn());
         return bookRepository.save(book);
     }
@@ -64,8 +65,7 @@ public class BookServiceImpl implements BookService {
     @Override
     @TrackTime
     public Book updateBook(BookDto bookDto, Long bookId) {
-        ThreadUtils.sleep(3000L);
-
+        ThreadUtils.sleep(200L);
         Book book = checkIfBookExistsAndGet(bookId);
         if (bookDto.getIsbn() != null) {
             checkIfBookAlreadyExists(bookDto.getIsbn());

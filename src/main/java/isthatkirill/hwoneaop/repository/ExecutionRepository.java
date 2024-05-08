@@ -15,14 +15,21 @@ import java.util.Optional;
 public interface ExecutionRepository extends JpaRepository<Execution, Long> {
 
     @Query("select new isthatkirill.hwoneaop.web.dto.ExecutionSummary(" +
-            "e.methodName, count(e), min(e.millisTook), avg(e.millisTook), max(e.millisTook), (cast(sum(case when e.isSuccess = true then 1 else 0 end) as double) / count(e)) * 100) " +
+            "e.methodName, count(e), min(e.millisTook), avg(e.millisTook), max(e.millisTook), " +
+            "(cast(sum(case when e.isSuccess = true then 1 else 0 end) as double) / count(e)) * 100) " +
             "from Execution e " +
-            "where e.methodName = :methodName and e.className = :className " +
+            "where e.methodName = :methodName and e.className like concat('%', :className) " +
             "group by e.methodName, e.className")
     Optional<ExecutionSummary> getMethodExecutionSummary(
             @Param("methodName") String methodName, @Param("className") String className
     );
 
-
+    @Query("select new isthatkirill.hwoneaop.web.dto.ExecutionSummary(" +
+            "e.className, count(e), min(e.millisTook), avg(e.millisTook), max(e.millisTook), " +
+            "(cast(sum(case when e.isSuccess = true then 1 else 0 end) as double) / count(e)) * 100) " +
+            "from Execution e " +
+            "where e.className like concat('%', :className) " +
+            "group by e.className")
+    Optional<ExecutionSummary> getClassExecutionSummary(@Param("className") String className);
 
 }

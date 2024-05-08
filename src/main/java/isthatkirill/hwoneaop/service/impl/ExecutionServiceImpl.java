@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -36,14 +38,26 @@ public class ExecutionServiceImpl implements ExecutionService {
     }
 
     @Override
-    @Async
-    public CompletableFuture<ExecutionSummary> getMethodSummary(String methodName, String className) {
-        return CompletableFuture.completedFuture(
-                executionRepository.getMethodExecutionSummary(methodName, className)
-                .orElseThrow(() -> new EntityNotFoundException(ExecutionSummary.class))
-        );
+    public CompletableFuture<List<Execution>> getAll() {
+        return CompletableFuture.completedFuture(executionRepository.findAll());
     }
 
+    @Override
+    @Async
+    public CompletableFuture<ExecutionSummary> getMethodSummary(String methodName, String className) {
+        return CompletableFuture.completedFuture(checkIfSummaryGenerated(methodName, className));
+    }
+
+    private ExecutionSummary checkIfSummaryGenerated(String methodName, String className) {
+        Optional<ExecutionSummary> summary;
+        if (methodName == null || methodName.isBlank()) {
+            summary = executionRepository.getClassExecutionSummary(className);
+        } else {
+            summary = executionRepository.getMethodExecutionSummary(methodName, className);
+        }
+        return summary
+                .orElseThrow(() -> new EntityNotFoundException(ExecutionSummary.class));
+    }
 
     private Execution checkIfExecutionExistsAndGet(Long executionId) {
         return executionRepository.findById(executionId)
