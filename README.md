@@ -81,9 +81,9 @@ GET /api/v1/executions/summary/?methodName=getBookById&className=BookServiceImpl
 
 ### Инструкция по запуску
 
-1. Склонируйте репозиторий `git clone https://github.com/isthatkirill/vk-trainee-project.git`
+1. Склонируйте репозиторий `git clone https://github.com/isthatkirill/t1-hw1-aop.git`
 
-2. Перейдите в директорию с проектом `cd vk-trainee-project`
+2. Перейдите в директорию с проектом `cd t1-hw1-aop`
 
 3. Запустите PostgreSQL локально на компьютере, предварительно установив нужные параметры в `.env` файле или воспользуйтесь заранее подготовленным в `docker-compose.yaml` контейнером, запустив его с помощью команды `docker compose up`.
 
